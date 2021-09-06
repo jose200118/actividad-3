@@ -7,9 +7,13 @@ use App\Models\Jornada;
 
 class Horarios extends Component
 {
+
+    public $search;
+
+
     public function render()
     {
-        $jornadas = Jornada::all();
+        $jornadas = Jornada::where('tipojornada', 'like', '%' . $this->search . '%')->get();
         return view('livewire.horarios', compact('jornadas'));
     }
 }
