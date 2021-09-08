@@ -1,3 +1,5 @@
 <div>
-    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+    <a class="btn btn-green">
+        <i class="fas fa-edit"></i>
+    </a>
 </div>

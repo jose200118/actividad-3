@@ -7,7 +7,7 @@ use App\Models\Jornada;
 
 class CreateHorario extends Component
 {
-    public $open = true;
+    public $open = false;
     public $tipojornada;
 
     protected $rules = [
