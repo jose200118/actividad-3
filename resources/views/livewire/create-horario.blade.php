@@ -14,8 +14,10 @@
             <x-slot name='content'>
                 <div class='mb4'>
                     <x-jet-label value='titulo de la jornada' />
-                    <x-jet-input type="text" class='w-full' wire:model.defer='tipojornada' />
-                    {{$tipojornada}}
+                    <x-jet-input type="text" class='w-full' wire:model='tipojornada' />
+
+                    <x-jet-input-error for='tipojornada'/>
+
                 </div>
             </x-slot>
 
@@ -24,9 +26,12 @@
                     cancelar
                 </x-jet-secondary-button>
 
-                <x-jet-danger-button wire:click="save">
+                <x-jet-danger-button wire:click="save" wire:loading.remove wire:target='save'>
                     crear Jornada
                 </x-jet-danger-button>
+
+
+                <samp wire:loading wire:target='save'>Cargando ...</samp>
             </x-slot>
 
         </x-jet-dialog-modal>

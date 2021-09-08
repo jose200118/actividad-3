@@ -11,6 +11,7 @@ class Horarios extends Component
     public $search;
     public $sort = 'id';
     public $direction = 'desc';
+    protected $listeners = ['render'];
 
     public function render()
     {
