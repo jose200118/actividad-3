@@ -8,14 +8,32 @@ use App\Models\Jornada;
 class Horarios extends Component
 {
 
-    public $search, $jornada;
+    public $search,$tipojornada, $jornada;
     public $sort = 'id';
     public $direction = 'desc';
-    protected $listeners = ['render'];
+    public $open_save = false;
     public $open_edit = false;
     protected $rules = [
+        'tipojornada' => 'required',
         'jornada.tipojornada' => 'required',
     ];
+    protected $listeners = ['render'];
+
+
+
+    public function save(Jornada $tipojornada){
+        $this->jornada = $tipojornada;
+        $this->open_save = true;
+
+        $this->validate();
+        jornada::create([
+            'tipojornada' => $this->tipojornada
+        ]);
+
+        $this->reset(['open_save', 'tipojornada']);
+        $this->emitTo('horarios','render');
+        $this->emit ('alert', 'La jornada se creo Exitosamente');
+    }
 
 
     public function render()
@@ -55,4 +73,6 @@ class Horarios extends Component
         $this->reset(['open_edit']);
         $this->emit('alert', 'la jornada se actialiso exitosamente');
     }
+
+
 }

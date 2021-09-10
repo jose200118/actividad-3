@@ -1,5 +1,5 @@
 <div>
-    <x-jet-danger-button wire:click="$set('open', true)">
+    {{--<x-jet-danger-button wire:click="$set('open', true)">
         crear nueva jornada
     </x-jet-danger-button>
 
@@ -36,5 +36,5 @@
 
         </x-jet-dialog-modal>
 
-    </div>
+    </div>--}}
 </div>

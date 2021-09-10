@@ -6,7 +6,10 @@
             <div class="px-6 py-4 flex items-center">
                 {{-- <input type="text" wire:model='search'> --}}
                 <x-jet-input class='flex-1 mr-4' placeholder="Escriba que quiere buscar" type="text" wire:model='search' />
-                @livewire('create-horario')
+                {{--@livewire('create-horario')--}}
+                <x-jet-danger-button wire:click="save{{$tipojornada}}">
+                    crear nueva jornada
+                </x-jet-danger-button>
             </div>
 
             @if ($jornadas->count())
@@ -76,7 +79,7 @@
         </x-table>
     </div>
 
-
+        <!-- donde se edita -->
     <x-jet-dialog-modal wire:model='open_edit'>
 
         <x-slot name='title'>
@@ -100,6 +103,37 @@
             </x-jet-danger-button>
 
         </x-slot>
+    </x-jet-dialog-modal>
+
+            <!-- donde se crear -->
+        <x-jet-dialog-modal wire:model="open_save">
+
+            <x-slot name='title'>
+                crear una nueva jornada
+            </x-slot>
+
+            <x-slot name='content'>
+                <div class='mb4'>
+                    <x-jet-label value='titulo de la jornada' />
+                    <x-jet-input type="text" class='w-full' wire:model='tipojornada' />
+
+                    <x-jet-input-error for='tipojornada'/>
+
+                </div>
+            </x-slot>
+
+            <x-slot name='footer'>
+                <x-jet-secondary-button wire:click="$set('open_save',false)">
+                    cancelar
+                </x-jet-secondary-button>
+
+                <x-jet-danger-button wire:click="save_save" wire:loading.remove wire:target='save'>
+                    crear Jornada
+                </x-jet-danger-button>
+
+
+                <samp wire:loading wire:target='save'>Cargando ...</samp>
+            </x-slot>
 
     </x-jet-dialog-modal>
 </div>
