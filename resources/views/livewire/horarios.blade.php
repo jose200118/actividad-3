@@ -50,16 +50,18 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($jornadas as $jornada)
+                        @foreach ($jornadas as $item)
                             <tr>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $jornada->id }}</div>
+                                <td class="px-6 py-4 ">
+                                    <div class="text-sm text-gray-900">{{ $item->id }}</div>
                                 </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $jornada->tipojornada }}</div>
+                                <td class="px-6 py-4 w-full">
+                                    <div class="text-sm text-gray-900">{{ $item->tipojornada }}</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    @livewire('edit-jornada', ['jornada' => $jornada], key($jornada->id))
+                                <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
+                                    {{-- @livewire('edit-jornada', ['jornada' => $jornada], key($jornada->id)) --}}
+                                    <button type="button" class="btn btn-success btn-sm" wire:click="edit({{$item}})">edit</button>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -73,4 +75,31 @@
             @endif
         </x-table>
     </div>
+
+
+    <x-jet-dialog-modal wire:model='open_edit'>
+
+        <x-slot name='title'>
+            Editar La jornada
+        </x-slot>
+
+        <x-slot name='content'>
+            <div class="mb-4">
+                <x-jet-label value="Titulo de la jornada"/>
+                <x-jet-input wire:model="jornada.tipojornada" type="text" class="w-full"/>
+            </div>
+
+        </x-slot>
+
+        <x-slot name='footer'>
+            <x-jet-secondary-button wire:click="$set('open_edit',false)">
+                Cancelar
+            </x-jet-secondary-button>
+            <x-jet-danger-button wire:click='update' wire:loading.attr='disabled' class="disabled:opacity-25" >
+                Actualizar
+            </x-jet-danger-button>
+
+        </x-slot>
+
+    </x-jet-dialog-modal>
 </div>
