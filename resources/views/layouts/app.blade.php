@@ -13,13 +13,14 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     @livewireStyles
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+
 </head>
 
 <body class="font-sans antialiased">
@@ -46,13 +47,13 @@
     @stack('modals')
 
     @livewireScripts
-
+    @stack('js')
     <script>
-        livewire.on('alert', function(message){
+        livewire.on('alert', function(message) {
             Swal.fire(
-                'Good job!',
-                'You clicked the button!',
-                'success'
+                'Buen trabajo!',
+                message,
+                'exitosamente'
             )
         })
     </script>

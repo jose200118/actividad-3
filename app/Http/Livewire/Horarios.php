@@ -4,43 +4,53 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Jornada;
+use Livewire\WithPagination;
+
 
 class Horarios extends Component
 {
-
-    public $search,$tipojornada, $jornada;
+    use WithPagination;
+    public $tipojornada, $jornada;
+    public $search = '';
     public $sort = 'id';
     public $direction = 'desc';
+    public $cant = '20';
     public $open_save = false;
     public $open_edit = false;
-    protected $rules = [
-        'tipojornada' => 'required',
-        'jornada.tipojornada' => 'required',
+    protected $listeners = ['render','delete'];
+    protected $queryString =[
+        'cant' =>['except' => '20'],
+        'sort' =>['except' => 'id'],
+        'direction' =>['except' => 'desc'],
+        'search' =>['except' => '']
     ];
-    protected $listeners = ['render'];
+    protected $rules = [
+        'jornada.tipojornada' => 'required'
+    ];
 
-
-
+    //-- guardar
     public function save(Jornada $tipojornada){
         $this->jornada = $tipojornada;
         $this->open_save = true;
-
-        $this->validate();
+    }
+    public function create(){
         jornada::create([
             'tipojornada' => $this->tipojornada
         ]);
-
         $this->reset(['open_save', 'tipojornada']);
         $this->emitTo('horarios','render');
         $this->emit ('alert', 'La jornada se creo Exitosamente');
     }
 
 
+
+    //-- busacador
+
     public function render()
     {
         $jornadas = Jornada::where('tipojornada', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
-            ->get();
+            ->paginate($this->cant);
         return view('livewire.horarios', compact('jornadas'));
     }
 
@@ -59,6 +69,11 @@ class Horarios extends Component
             $this->direction = 'asc';
         }
     }
+    public function updatingSearch(){
+        $this->resetPage();
+    }
+
+    //--modificar
 
     public function edit(Jornada $jornada)
     {
@@ -72,6 +87,12 @@ class Horarios extends Component
         $this->jornada->save();
         $this->reset(['open_edit']);
         $this->emit('alert', 'la jornada se actialiso exitosamente');
+    }
+
+    //--eliminar
+
+    public function delete(Jornada $jornada){
+        $jornada->delete();
     }
 
 
