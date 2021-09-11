@@ -5,9 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
-                    </a>
+                    <img src="http://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png" class="block h-9 w-auto">
                 </div>
 
                 <!-- Navigation Links -->
@@ -15,6 +13,8 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
+
+                    <h3>hola</h3>
                 </div>
             </div>
 
