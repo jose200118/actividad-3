@@ -3,14 +3,13 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Jornada;
+use App\Models\Programa;
 use Livewire\WithPagination;
 
-
-class Horarios extends Component
+class Programas extends Component
 {
     use WithPagination;
-    public $tipojornada, $jornada;
+    public $nombreprograma, $programa;
     public $search = '';
     public $sort = 'id';
     public $direction = 'desc';
@@ -25,23 +24,23 @@ class Horarios extends Component
         'search' => ['except' => '']
     ];
     protected $rules = [
-        'jornada.tipojornada' => 'required'
+        'programa.nombreprograma' => 'required'
     ];
 
     //-- guardar
-    public function save(Jornada $tipojornada)
+    public function save(Programa $nombreprograma)
     {
-        $this->jornada = $tipojornada;
+        $this->programa = $nombreprograma;
         $this->open_save = true;
     }
     public function create()
     {
-        jornada::create([
-            'tipojornada' => $this->tipojornada
+        programa::create([
+            'nombreprograma' => $this->nombreprograma
         ]);
-        $this->reset(['open_save', 'tipojornada']);
-        $this->emitTo('horarios', 'render');
-        $this->emit('alert', 'La jornada se creo Exitosamente');
+        $this->reset(['open_save', 'nombreprograma']);
+        $this->emitTo('programas', 'render');
+        $this->emit('alert', 'La programa se creo Exitosamente');
     }
 
 
@@ -50,10 +49,10 @@ class Horarios extends Component
 
     public function render()
     {
-        $jornadas = Jornada::where('tipojornada', 'like', '%' . $this->search . '%')
+        $programas = Programa::where('nombreprograma', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->cant);
-        return view('livewire.horarios', compact('jornadas'));
+        return view('livewire.programas', compact('programas'));
     }
 
     public function order($sort)
@@ -78,24 +77,24 @@ class Horarios extends Component
 
     //--modificar
 
-    public function edit(Jornada $jornada)
+    public function edit(Programa $programa)
     {
-        $this->jornada = $jornada;
+        $this->programa = $programa;
         $this->open_edit = true;
     }
 
     public function update()
     {
         $this->validate();
-        $this->jornada->save();
+        $this->programa->save();
         $this->reset(['open_edit']);
-        $this->emit('alert', 'la jornada se actialiso exitosamente');
+        $this->emit('alert', 'el programa se actialiso exitosamente');
     }
 
     //--eliminar
 
-    public function delete(Jornada $jornada)
+    public function delete(Programa $programa)
     {
-        $jornada->delete();
+        $programa->delete();
     }
 }

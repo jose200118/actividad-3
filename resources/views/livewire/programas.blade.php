@@ -17,11 +17,11 @@
                 <x-jet-input class="flex-1 mx-4" placeholder="Escriba que quiere buscar" type="text"
                     wire:model='search' />
                 {{-- @livewire('create-horario') --}}
-                <x-jet-danger-button wire:click="save{{ $tipojornada }}">
-                    crear nueva jornada
+                <x-jet-danger-button wire:click="save{{ $nombreprograma}}">
+                    crear nueva programa
                 </x-jet-danger-button>
             </div>
-            @if ($jornadas->count())
+            @if ($programas->count())
                 <table class="w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -42,10 +42,10 @@
                             </th>
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                wire:click='order("tipojornada")'>
-                                Jornada
+                                wire:click='order("nombreprograma")'>
+                                Programa
                                 {{-- sort --}}
-                                @if ($sort == 'tipojornada')
+                                @if ($sort == 'nombreprograma')
                                     @if ($direction == 'asc')
                                         <i class='fas fa-sort-alpha-up-alt float-right mt-1'></i>
                                     @else
@@ -61,13 +61,13 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($jornadas as $item)
+                        @foreach ($programas as $item)
                             <tr>
                                 <td class=" ml-2 px-6 py-4 ">
                                     <div class="text-sm text-gray-900">{{ $item->id }}</div>
                                 </td>
                                 <td class="px-6 py-4 w-full">
-                                    <div class="text-sm text-gray-900">{{ $item->tipojornada }}</div>
+                                    <div class="text-sm text-gray-900">{{ $item->nombreprograma }}</div>
                                 </td>
                                 <td class="ext-sm font-medium flex">
                                     {{-- @livewire('edit-jornada', ['jornada' => $jornada], key($jornada->id)) --}}
@@ -75,7 +75,7 @@
                                         wire:click="edit({{ $item }})">edit</button>
                                     <!--boton eliminar -->
                                     <button type="button" class="btn btn-danger btn-sm ml-2"
-                                        wire:click="$emit('deleteJornadas', {{ $item->id }})">Eliminar</button>
+                                        wire:click="$emit('deletePrograma', {{ $item->id }})">Eliminar</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -88,9 +88,9 @@
                 </div>
             @endif
 
-            @if ($jornadas->hasPages())
+            @if ($programas->hasPages())
                 <div class="px-6 py-3">
-                    {{ $jornadas->links() }}
+                    {{ $programas->links() }}
                 </div>
 
             @else
@@ -105,14 +105,14 @@
     <x-jet-dialog-modal wire:model="open_save">
 
         <x-slot name='title'>
-            crear una nueva jornada
+            crear una nueva programa
         </x-slot>
 
         <x-slot name='content'>
             <div class='mb4'>
-                <x-jet-label value='titulo de la jornada' />
-                <x-jet-input type="text" class='w-full' wire:model='tipojornada' />
-                <x-jet-input-error for='tipojornada' />
+                <x-jet-label value='titulo de la programa' />
+                <x-jet-input type="text" class='w-full' wire:model='nombreprograma' />
+                <x-jet-input-error for='nombreprograma' />
             </div>
         </x-slot>
 
@@ -122,7 +122,7 @@
             </x-jet-secondary-button>
 
             <x-jet-danger-button wire:click="create" wire:loading.remove wire:target='save'>
-                crear Jornada
+                crear Programa
             </x-jet-danger-button>
             <samp wire:loading wire:target='save'>Cargando ...</samp>
         </x-slot>
@@ -134,13 +134,13 @@
     <x-jet-dialog-modal wire:model='open_edit'>
 
         <x-slot name='title'>
-            Editar La jornada
+            Editar La programa
         </x-slot>
 
         <x-slot name='content'>
             <div class="mb-4">
-                <x-jet-label value="Titulo de la jornada" />
-                <x-jet-input wire:model="jornada.tipojornada" type="text" class="w-full" />
+                <x-jet-label value="Titulo de la programa" />
+                <x-jet-input wire:model="programa.nombreprograma" type="text" class="w-full" />
 
             </div>
 
@@ -163,7 +163,7 @@
         <script src="sweetalert2.all.min.js"></script>
 
         <script>
-            livewire.on('deleteJornadas', jornadasid => {
+            livewire.on('deletePrograma', programaid => {
                 Swal.fire({
                     title: 'Estas seguro?',
                     text: "No podrás revertir esto!",
@@ -174,9 +174,7 @@
                     confirmButtonText: 'Si, bórralo!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-
-                        livewire.emitTo('horarios', 'delete', jornadasid)
-
+                        livewire.emitTo('programas', 'delete', programaid)
                         Swal.fire(
                             'Eliminado!',
                             'Su archivo ha sido eliminado.',
@@ -187,5 +185,7 @@
             });
         </script>
     @endpush
-</div>
 
+
+
+</div>
