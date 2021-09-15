@@ -22,7 +22,7 @@ class JornadaFactory extends Factory
     public function definition()
     {
         return [
-            'tipojornada' => $this->faker->sentence(),
+            'tipojornada' => $this->faker->text(),
         ];
     }
 }

@@ -27,4 +27,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/programas', Programas::cl
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/horarios', Horarios::class)->name('horarios');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/instructores', Instructores::class)->name('instructores');
 

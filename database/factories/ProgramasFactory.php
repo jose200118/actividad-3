@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\Programas;
+use App\Models\Programa;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProgramasFactory extends Factory
+class ProgramaFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.

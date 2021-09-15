@@ -13,11 +13,15 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('programas') }}" :active="request()->routeIs('livewire.programas')">
+                    <x-jet-nav-link href="{{ route('programas') }}"
+                        :active="request()->routeIs('livewire.programas')">
                         {{ __('Programas') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('horarios') }}" :active="request()->routeIs('livewire.horarios')">
                         {{ __('Horarios') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('instructores') }}" :active="request()->routeIs('livewire.instructores')">
+                        {{ __('Instructores') }}
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -161,10 +165,20 @@
             </x-jet-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('programas') }}" :active="request()->routeIs('livewire.programas')">
+            <x-jet-responsive-nav-link href="{{ route('programas') }}"
+                :active="request()->routeIs('livewire.programas')">
                 {{ __('Programas') }}
             </x-jet-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('instructores') }}"
+                :active="request()->routeIs('livewire.instructores')">
+                {{ __('instructores') }}
+            </x-jet-responsive-nav-link>
+        </div>
+
+
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
